@@ -21,7 +21,7 @@ angular
       events:true,
     });
 
-    $urlRouterProvider.otherwise('/dashboard/home');
+    $urlRouterProvider.otherwise('/login');
 
     $stateProvider
       .state('dashboard', {
@@ -153,6 +153,10 @@ angular
        templateUrl:'views/ui-elements/grid.html',
        url:'/grid'
    })
+        .state('dashboard.users',{
+            templateUrl:'views/volunteers.html',
+            url:'/users'
+        })
   }]);
 
     

@@ -79,5 +79,9 @@ body {
 
 .nav>li.active>a {
 text-decoration: none;
-background-color: #eee;
+background-color: #AAAAAA;
+}
+
+a{
+  color: #f5f5f5;
 }
