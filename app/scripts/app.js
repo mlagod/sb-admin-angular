@@ -153,9 +153,13 @@ angular
        templateUrl:'views/ui-elements/grid.html',
        url:'/grid'
    })
-        .state('dashboard.users',{
+        .state('dashboard.volunteers',{
             templateUrl:'views/volunteers.html',
-            url:'/users'
+            url:'/volunteers'
+        })
+        .state('dashboard.newVolunteer', {
+            templateUrl:'views/newVolunteer.html',
+            url:'/new-volunteer'
         })
   }]);
 
