@@ -155,11 +155,35 @@ angular
    })
         .state('dashboard.volunteers',{
             templateUrl:'views/volunteers.html',
-            url:'/volunteers'
+            url:'/volunteers',
+            controller: 'volunteersCtrl',
+            controllerAs: 'volunteersCtrl',
+            resolve: {
+                loadMyFiles:function($ocLazyLoad) {
+                    return $ocLazyLoad.load({
+                        name:'sbAdminApp',
+                        files:[
+                            'scripts/controllers/volunteersCtrl.js'
+                        ]
+                    })
+                }
+            }
         })
         .state('dashboard.newVolunteer', {
             templateUrl:'views/newVolunteer.html',
-            url:'/new-volunteer'
+            url:'/new-volunteer',
+            controller:'newVolunteerCtrl',
+            controllerAs: 'newVolCtrl',
+            resolve: {
+                loadMyFiles:function($ocLazyLoad) {
+                    return $ocLazyLoad.load({
+                        name:'sbAdminApp',
+                        files:[
+                            'scripts/controllers/newVolunteerCtrl.js'
+                        ]
+                    })
+                }
+            }
         })
   }]);
 

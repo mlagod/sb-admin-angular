@@ -1,3 +1,5 @@
+<script src="../scripts/controllers/newVolunteerCtrl.js"></script>
+
 <div class="container-fluid">
     <div class="row">
         <div class="col-lg-12">
@@ -15,17 +17,17 @@
                 <div class="panel-body">
                     <div class="form-group">
                         <p class="help-block">Imię nowego wolontariusza</p>
-                        <input class="form-control" placeholder="Jan">
+                        <input class="form-control" placeholder="Jan" ng-model="newVolCtrl.form.name">
                         <p class="help-block">Nazwisko nowego wolontariusza</p>
-                        <input class="form-control" placeholder="Kowalski">
+                        <input class="form-control" placeholder="Kowalski" ng-model="newVolCtrl.form.surname">
                         <p class="help-block">Email nowego wolontariusza</p>
-                        <input class="form-control" placeholder="email@email.pl">
-                        <p class="help-block">Numer kontakowy nowego wolontariusza</p>
-                        <input class="form-control" placeholder="123-456-789">
+                        <input class="form-control" placeholder="email@email.pl" ng-model="newVolCtrl.form.email">
+                        <p class="help-block">Numer kontakowy nowego wolontariusza {{ newVolCtrl.form.email}}</p>
+                        <input class="form-control" placeholder="123-456-789" ng-model="newVolCtrl.form.phone">
                     </div>
                 </div>
                 <div class="panel-footer">
-                    <button type="button" class="btn btn-outline btn-primary center-block">Zarejestruj</button>
+                    <button type="button" class="btn btn-outline btn-primary center-block" ng-click="newVolCtrl.createUser(newVolCtrl.form)">Zarejestruj</button>
                 </div>
             </div>
         </div>
@@ -41,47 +43,34 @@
                     <div class="form-group">
                         <p class="help-block">Członek 1</p>
                         <select class="form-control">
-                            <option>Janek</option>
-                            <option>Bartek</option>
-                            <option>Mietek</option>
-                            <option>Łukasz</option>
-                            <option>Mateusz</option>
+                            <option ng-repeat="vol in newVolCtrl.volunteers" ng-click="newVolCtrl.addTeamMember(vol)">{{vol.name}} {{vol.surname}}</option>
                         </select>
 
                         <div class="form-group">
                             <p class="help-block">Członek 2</p>
                             <select class="form-control">
-                                <option>Janek</option>
-                                <option>Bartek</option>
-                                <option>Mietek</option>
-                                <option>Łukasz</option>
-                                <option>Mateusz</option>
+                                <option ng-repeat="vol in newVolCtrl.volunteers" ng-model = "newVolCtrl.addTeamMember(vol)">{{vol.name}} {{vol.surname}}</option>
                             </select> </div>
 
                         <div class="form-group">
                             <p class="help-block">Członek 3</p>
                             <select class="form-control">
-                                <option>Janek</option>
-                                <option>Bartek</option>
-                                <option>Mietek</option>
-                                <option>Łukasz</option>
-                                <option>Mateusz</option>
+                                <option ng-repeat="vol in newVolCtrl.volunteers" ng-model = "newVolCtrl.addTeamMember(vol)">{{vol.name}} {{vol.surname}}</option>
                             </select> </div>
 
                         <div class="form-group">
                             <p class="help-block">Członek 4</p>
                             <select class="form-control">
-                                <option>Janek</option>
-                                <option>Bartek</option>
-                                <option>Mietek</option>
-                                <option>Łukasz</option>
-                                <option>Mateusz</option>
+                                <option ng-repeat="vol in newVolCtrl.volunteers" ng-model = "newVolCtrl.addTeamMember(vol)">{{vol.name}} {{vol.surname}}
+                                </option>
                             </select> </div>
+
+                        <a ng-click="reserve.setRoom(room.id, room.number)">Sala nr. {{room.number}}, wielkość: {{room.capacity}} osób</a>
 
                     </div>
                 </div>
                 <div class="panel-footer">
-                    <button type="button" class="btn btn-outline btn-primary center-block">Dodaj zespół</button>
+                    <button type="button" class="btn btn-outline btn-primary center-block" ng-click="newVolCtrl.createTeam(newVolCtrl.newTeamIds)">Dodaj zespół</button>
                 </div>
             </div>
         </div>
@@ -97,25 +86,21 @@
                 <div class="form-group">
                     <p class="help-block">Wybierz z listy</p>
                         <select class="form-control">
-                            <option>Janek</option>
-                            <option>Bartek</option>
-                            <option>Mietek</option>
-                            <option>Łukasz</option>
-                            <option>Mateusz</option>
+                            <option ng-repeat="vol in newVolCtrl.volunteers">{{vol.name}} {{vol.surname}}</option>
                         </select>
 
                     <p class="help-block">Imię  wolontariusza</p>
-                    <input class="form-control" placeholder="Jan">
+                    <input class="form-control" placeholder="Jan" ng-model = "newVolCtrl.selectedVol.name">
                     <p class="help-block">Nazwisko wolontariusza</p>
-                    <input class="form-control" placeholder="Kowalski">
+                    <input class="form-control" placeholder="Kowalski" ng-model = "newVolCtrl.selectedVol.surname">
                     <p class="help-block">Email wolontariusza</p>
-                    <input class="form-control" placeholder="email@email.pl">
+                    <input class="form-control" placeholder="email@email.pl" ng-model = "newVolCtrl.selectedVol.email">
                     <p class="help-block">Numer kontakowy wolontariusza</p>
-                    <input class="form-control" placeholder="123-456-789">
+                    <input class="form-control" placeholder="123-456-789" ng-model = "newVolCtrl.selectedVol.phone">
                 </div>
             </div>
             <div class="panel-footer">
-                <button type="button" class="btn btn-outline btn-primary center-block">Zapisz zmiany</button>
+                <button type="button" class="btn btn-outline btn-primary center-block" ng-click="newVolCtrl.updateUser(newVolCtrl.selectedVol)">Zapisz zmiany</button>
             </div>
         </div>
     </div>
@@ -132,66 +117,42 @@
                 <div class="form-group">
                     <p class="help-block">Wybierz zespół do edycji</p>
                     <select class="form-control">
-                        <option>Zespół 1</option>
-                        <option>Zespół 2</option>
-                        <option>Zespół 3</option>
-                        <option>Zespół 4</option>
-                        <option>Zespół 5</option>
+                        <option ng-repeat="team in newVolCtrl.teams" ng-model="newVolCtrl.selectedTeamId">Drużyna numer {{team.number}}</option>
                     </select>
 
                     <div class="form-group">
                         <p class="help-block">Członek 1</p>
                         <select class="form-control">
-                            <option>Janek</option>
-                            <option>Bartek</option>
-                            <option>Mietek</option>
-                            <option>Łukasz</option>
-                            <option>Mateusz</option>
+                            <option ng-repeat="vol in newVolCtrl.volunteersInTeam">{{vol.name}} {{vol.surname}}</option>
                         </select> </div>
 
                     <div class="form-group">
                         <p class="help-block">Członek 2</p>
                         <select class="form-control">
-                            <option>Janek</option>
-                            <option>Bartek</option>
-                            <option>Mietek</option>
-                            <option>Łukasz</option>
-                            <option>Mateusz</option>
+                            <option ng-repeat="vol in newVolCtrl.volunteers">{{vol.name}} {{vol.surname}}</option>
                         </select> </div>
 
                     <div class="form-group">
                         <p class="help-block">Członek 3</p>
                         <select class="form-control">
-                            <option>Janek</option>
-                            <option>Bartek</option>
-                            <option>Mietek</option>
-                            <option>Łukasz</option>
-                            <option>Mateusz</option>
+                            <option ng-repeat="vol in newVolCtrl.volunteers">{{vol.name}} {{vol.surname}}</option>
                         </select> </div>
 
                     <div class="form-group">
                         <p class="help-block">Członek 4</p>
                         <select class="form-control">
-                            <option>Janek</option>
-                            <option>Bartek</option>
-                            <option>Mietek</option>
-                            <option>Łukasz</option>
-                            <option>Mateusz</option>
+                            <option ng-repeat="vol in newVolCtrl.volunteers">{{vol.name}} {{vol.surname}}</option>
                         </select> </div>
 
                     <div class="form-group">
                         <p class="help-block">Członek 5</p>
                         <select class="form-control">
-                            <option>Janek</option>
-                            <option>Bartek</option>
-                            <option>Mietek</option>
-                            <option>Łukasz</option>
-                            <option>Mateusz</option>
+                            <option ng-repeat="vol in newVolCtrl.volunteers">{{vol.name}} {{vol.surname}}</option>
                         </select> </div>
                 </div>
             </div>
             <div class="panel-footer">
-                <button type="button" class="btn btn-outline btn-primary center-block">Zapisz zmiany</button>
+                <button type="button" class="btn btn-outline btn-primary center-block" ng-click="newVolCtrl.updateTeam(teamId, members)">Zapisz zmiany</button>
             </div>
         </div>
     </div>
